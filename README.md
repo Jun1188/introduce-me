@@ -16,7 +16,6 @@
 
 - [CoreDawn](https://github.com/Jun1188/CoreDawn): 게임 장르, 기술 스택, 개발 상태. 담당 업무는 본인 포트폴리오 기록.
 - [모두의 카페 / ai-hack-gameJam](https://github.com/Jun1188/ai-hack-gameJam): 게임잼 날짜와 프로젝트. 제작진은 게임 내 크레딧 기반.
-- [Interactive Scene Editor](https://github.com/Jun1188/Interactive_SceneEditer_OpenGL): 협업 목적과 기술 스택. 카드 이미지는 UI 기술 구성을 표현한 타이포그래픽으로 실제 실행 화면이 아님을 표기.
 - [IDIOTS](https://jun1188.github.io/idiots/): 동아리 공개 활동 아카이브. 동아리 창립·운영, Unidev 역할, 기업 교류, ID_con 등은 본인 활동 기록을 반영.
 
 프로젝트 이미지는 IDIOTS 공개 사이트에서 검토·공개된 CoreDawn 아이콘 및 모두의 카페 타이틀 화면만 재사용했습니다. 게임·이미지 등 각 저작물의 권리는 원저작자와 제작진에게 있습니다. 새 배포 저장소에 임의의 오픈소스 라이선스를 부여하지 않았습니다.
