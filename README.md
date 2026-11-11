@@ -1,2 +1,26 @@
-# introduce-me
-변준영 · 게임 개발, AI 도구, IDIOTS 커뮤니티 포트폴리오
+# 변준영 · introduce-me
+
+게임 개발, AI 개발 도구, IDIOTS 커뮤니티 운영을 소개하는 정적 포트폴리오입니다.
+
+- 공개 페이지: https://jun1188.github.io/introduce-me/
+- 구성: HTML / CSS / Vanilla JavaScript. 외부 라이브러리·분석 추적·쿠키 없음.
+- 배포: GitHub Pages, `main` 브랜치 루트. 이전 커밋으로 복구 가능.
+- 로컬 실행: `python3 -m http.server 8000`
+- 정적 확인: `node --check app.js`
+
+## 기록 및 공개 범위
+
+2026-11-11 기준. 본인이 제공한 약력, 개인 포트폴리오에서 검토한 공개 가능한 경력 요약, 공개 프로젝트와 IDIOTS 홈페이지를 종합했습니다. 규모는 본인 기록의 근사치이며 실시간 수치가 아닙니다. 개인문서 원문·비밀키·연락처·내부 링크는 포함하지 않습니다. 확인되지 않은 수상이나 프로젝트별 기여율을 만들지 않습니다.
+
+## 공개 근거
+
+- [CoreDawn](https://github.com/Jun1188/CoreDawn): 게임 장르, 기술 스택, 개발 상태. 담당 업무는 본인 포트폴리오 기록.
+- [모두의 카페 / ai-hack-gameJam](https://github.com/Jun1188/ai-hack-gameJam): 게임잼 날짜와 프로젝트. 제작진은 게임 내 크레딧 기반.
+- [Interactive Scene Editor](https://github.com/Jun1188/Interactive_SceneEditer_OpenGL): 협업 목적과 기술 스택. 카드 이미지는 UI 기술 구성을 표현한 타이포그래픽으로 실제 실행 화면이 아님을 표기.
+- [IDIOTS](https://jun1188.github.io/idiots/): 동아리 공개 활동 아카이브. 동아리 창립·운영, Unidev 역할, 기업 교류, ID_con 등은 본인 활동 기록을 반영.
+
+프로젝트 이미지는 IDIOTS 공개 사이트에서 검토·공개된 CoreDawn 아이콘 및 모두의 카페 타이틀 화면만 재사용했습니다. 게임·이미지 등 각 저작물의 권리는 원저작자와 제작진에게 있습니다. 새 배포 저장소에 임의의 오픈소스 라이선스를 부여하지 않았습니다.
+
+## 디자인과 접근성
+
+동아리 홈페이지의 저채도 컬러, 기록 중심 편집, 점 격자 표현을 이어받되 개인의 역할을 읽기 쉬운 에디토리얼 형식으로 재구성했습니다. 배경색 전환과 낮은 강도의 등장 모션, 프로젝트 필터를 제공합니다. 키보드 탐색, 본문 바로가기, reduced-motion, 모션 끄기, 인쇄 스타일, 모바일 단일 열을 지원합니다.
