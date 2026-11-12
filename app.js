@@ -2,7 +2,7 @@
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 let motionOff = reduced.matches;
 const motion = document.querySelector('#motion');
-function applyMotion(){document.body.classList.toggle('motion-off',motionOff);motion.setAttribute('aria-pressed',String(motionOff));motion.textContent=motionOff?'모션 켜기':'모션 끄기';}
+function applyMotion(){document.documentElement.classList.toggle('motion-off',motionOff);document.body.classList.toggle('motion-off',motionOff);motion.setAttribute('aria-pressed',String(motionOff));motion.textContent=motionOff?'모션 켜기':'모션 끄기';}
 applyMotion();motion.addEventListener('click',()=>{motionOff=!motionOff;applyMotion()});
 reduced.addEventListener('change',e=>{motionOff=e.matches;applyMotion()});
 for(let i=0;i<80;i++){document.querySelector('.dot-field').append(document.createElement('i'))}
@@ -10,7 +10,15 @@ const projects=[...document.querySelectorAll('[data-kind]')];
 function selectFilter(button){document.querySelectorAll('[data-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));let visible=0;projects.forEach(p=>{p.hidden=button.dataset.filter!=='all'&&p.dataset.kind!==button.dataset.filter;if(!p.hidden)visible++});document.querySelector('#filter-status').textContent=`프로젝트 ${visible}개 표시`; const url=new URL(location.href);if(button.dataset.filter==='all')url.searchParams.delete('category');else url.searchParams.set('category',button.dataset.filter);history.replaceState(null,'',url); }
 document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>selectFilter(button)));
 const initialCategory=new URLSearchParams(location.search).get('category');const initialButton=[...document.querySelectorAll('[data-filter]')].find(b=>b.dataset.filter===initialCategory);if(initialButton)selectFilter(initialButton);
-if('IntersectionObserver' in window){const reveals=document.querySelectorAll('.project,.impact article,.timeline article,.tool-list article');reveals.forEach(x=>x.classList.add('reveal'));document.documentElement.classList.add('js');const ob=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');ob.unobserve(e.target)}}),{threshold:.08});reveals.forEach(x=>ob.observe(x));const scenes=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)document.body.dataset.scene=e.target.id}),{rootMargin:'-25% 0px -45% 0px',threshold:0});document.querySelectorAll('main>section').forEach(x=>scenes.observe(x));}
+if('IntersectionObserver' in window){const reveals=document.querySelectorAll('.project,.impact article,.timeline article,.tool-list article,.contribution-highlights article');reveals.forEach(x=>x.classList.add('reveal'));document.documentElement.classList.add('js');const ob=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');ob.unobserve(e.target)}}),{threshold:.08});reveals.forEach(x=>ob.observe(x));const scenes=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)document.body.dataset.scene=e.target.id}),{rootMargin:'-25% 0px -45% 0px',threshold:0});document.querySelectorAll('main>section').forEach(x=>scenes.observe(x));}
 let ticking=false;function updateProgress(){const max=document.documentElement.scrollHeight-innerHeight;document.querySelector('.scroll-progress').style.width=`${max>0?scrollY/max*100:0}%`;ticking=false;}
 addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(updateProgress);ticking=true}},{passive:true});addEventListener('resize',updateProgress);updateProgress();
 document.querySelector('#print').addEventListener('click',()=>window.print());
+
+
+const contributionChart=document.querySelector('#contribution-chart');
+function chartUnavailable(){contributionChart.hidden=true;contributionChart.parentElement.hidden=true;document.querySelector('#contribution-status').textContent='기여 그래프를 불러오지 못했습니다. 아래 GitHub 원본 링크에서 기록을 확인해 주세요.';}
+contributionChart.addEventListener('error',chartUnavailable);
+const chartTimeout=setTimeout(()=>{if(!contributionChart.complete){chartUnavailable();contributionChart.removeAttribute('src');}},10000);
+contributionChart.addEventListener('load',()=>clearTimeout(chartTimeout));
+if(contributionChart.complete&&contributionChart.naturalWidth===0)chartUnavailable();
