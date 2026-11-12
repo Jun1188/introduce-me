@@ -19,4 +19,6 @@ document.querySelector('#print').addEventListener('click',()=>window.print());
 const contributionChart=document.querySelector('#contribution-chart');
 function chartUnavailable(){contributionChart.hidden=true;contributionChart.parentElement.hidden=true;document.querySelector('#contribution-status').textContent='기여 그래프를 불러오지 못했습니다. 아래 GitHub 원본 링크에서 기록을 확인해 주세요.';}
 contributionChart.addEventListener('error',chartUnavailable);
+const chartTimeout=setTimeout(()=>{if(!contributionChart.complete){chartUnavailable();contributionChart.removeAttribute('src');}},10000);
+contributionChart.addEventListener('load',()=>clearTimeout(chartTimeout));
 if(contributionChart.complete&&contributionChart.naturalWidth===0)chartUnavailable();
