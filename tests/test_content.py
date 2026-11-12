@@ -31,6 +31,10 @@ class Content(unittest.TestCase):
  def test_privacy(self):
   for t in ['drive.google.com','135by135by','Interactive_SceneEditer','C:\\Users\\','api_key','ghp_']:
    self.assertNotIn(t,self.text)
+ def test_heading_whitespace(self):
+  import re
+  for heading in re.findall(r'<h[1-6]\b[^>]*>.*?</h[1-6]>',self.text):
+   self.assertNotRegex(heading,r'<br>[^\s]')
  def test_images(self):
   for i in self.doc.images:self.assertTrue(i.get('alt'));self.assertTrue(i.get('width'));self.assertTrue(i.get('height'))
 if __name__=='__main__':unittest.main()

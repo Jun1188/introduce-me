@@ -15,6 +15,10 @@ with sync_playwright() as p:
   for section in ['knowledge','creating','community','record','activity','contact']:
    page.locator('#'+section).scroll_into_view_if_needed();expect(page.locator('#'+section+' h2')).to_be_visible()
    assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
+  expected_titles=['개발 개념을 설명하는 컨텐츠','AI 도구를 활용하는 방법','지식이 만나는 프로그램과 기록']
+  assert [' '.join(t.split()) for t in page.locator('.creator-grid h3').all_inner_texts()]==expected_titles
+  page.locator('#creating').scroll_into_view_if_needed()
+  page.screenshot(path=str(OUT/f'creating-{width}.png'))
   for category,count in [('game',2),('tool',4),('all',6)]:
    page.locator(f'[data-filter="{category}"]').click()
    expect(page.locator('[data-kind]:visible')).to_have_count(count)
