@@ -16,7 +16,10 @@ for row in d['active_months_ranked'][:3]:
  for day in m['days']:
   label=f'{day["date"]}: 기여 {day["count"]}회'
   parts.append(f'<span data-date="{day["date"]}" data-count="{day["count"]}" data-level="{day["level"]}" role="img" aria-label="{label}" title="{label}"></span>')
- parts.append('</div></article>')
+ parts.append('</div><details class="day-counts"><summary>날짜별 수치 보기</summary><ul>')
+ for day in m['days']:
+  if day['count']:parts.append(f'<li>{day["date"]}: {day["count"]}회</li>')
+ parts.append('</ul><p class="note">기여가 없는 날짜는 목록에서 생략했습니다.</p></details></article>')
 parts.append('</div><p class="activity-legend">옅은색 → 진한색: GitHub 기여 단계. 색만으로 기여 수를 추정하지 않으며, 날짜별 수치는 각 칸의 설명으로 제공합니다.</p><p class="activity-source">'+html.escape(d['display_note_ko'])+' 활동 월 안의 빈 날짜는 달력의 흐름을 보존하기 위해 남겼습니다.</p><div class="activity-years">')
 for y in reversed(d['years']):
  parts.append(f'<details><summary>{y["year"]}년 · {y["count"]:,}회 기여 · 활동 {y["active_days"]}일</summary><p class="note">집계 범위 {y["observed_from"]} ~ {y["observed_through"]}</p><ul class="year-months">')
