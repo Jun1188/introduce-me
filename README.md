@@ -35,5 +35,17 @@
 
 검증: `python tests/test_content.py`, `node --check app.js`, HTTP 서버 실행 후 `python tests/test_browser.py`. 브라우저 검사는 Playwright Chromium이 필요하며 GitHub Actions에서 PC·모바일·키보드·필터·모션·JavaScript 비활성 화면을 확인합니다.
 
-### GitHub contribution chart
-The contribution image uses the documented `ghchart.rshah.org/<color>/<username>` endpoint ([source](https://github.com/2016rshah/githubchart-api)). It reflects the public profile, is not a skill score, and may lag GitHub. No authentication tokens or private repository data are requested. A permanent original-profile link and image-error message remain available if the external service fails. Small screens can scroll the graph with keyboard or touch.
+### GitHub activity snapshot
+`data/github-activity.json` contains unauthenticated GitHub public-profile calendar counts, not commit-only counts. Profile settings may include anonymized private contributions; no private names or content are accessed. The calendar is rendered into HTML, so it works offline and with JavaScript disabled. Top three active months are explicitly date-labeled; zero-contribution months are omitted, but zero days within active months remain. Annual summaries preserve all recorded activity.
+
+Refresh and validate:
+```sh
+python scripts/refresh_activity.py
+python scripts/render_activity.py
+python tests/test_activity_data.py
+python tests/test_content.py
+```
+The refresh fails on duplicate/missing dates or disagreement with GitHub annual totals. Per-day counts are parsed from GitHub tooltips, never inferred from colour levels. Refresh is manual; there is no claim of live updating.
+
+### Career clarification
+Mentoring and leadership additions reflect the owner's direct statement: C++ major mentoring every semester in 2025–2026, annual mathematics mentoring; UNIDEV representative/event-team officer and IDIOTS founder/president. No unverifiable event-specific assignment or award was added.
