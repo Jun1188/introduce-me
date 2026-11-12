@@ -10,9 +10,9 @@ with sync_playwright() as p:
   context=browser.new_context(viewport={'width':width,'height':900},device_scale_factor=1,has_touch=width<500)
   page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
   page.goto(URL);expect(page.locator('h1')).to_be_visible()
-  assert page.locator('.hero-identity').inner_text().startswith('게임 개발자 · 콘텐츠 크리에이터')
+  assert page.locator('.hero-identity').inner_text().startswith('게임 개발자 · 컨텐츠 크리에이터')
   assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
-  for section in ['knowledge','creating','community','record','contact']:
+  for section in ['knowledge','creating','community','record','activity','contact']:
    page.locator('#'+section).scroll_into_view_if_needed();expect(page.locator('#'+section+' h2')).to_be_visible()
    assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
   for category,count in [('game',2),('tool',4),('all',6)]:
@@ -35,12 +35,15 @@ with sync_playwright() as p:
   page.locator('#knowledge').scroll_into_view_if_needed();page.screenshot(path=str(OUT/f'knowledge-{width}.png'))
   assert not errors,errors
   results.append({'width':width,'status':'passed'});context.close()
- # The external chart is optional; a failed service must not block the portfolio.
+ # Local contribution snapshot needs no external chart service.
  context=browser.new_context(viewport={'width':390,'height':844})
- context.route('https://ghchart.rshah.org/**',lambda route:route.abort())
- page=context.new_page();page.goto(URL);page.locator('#contact').scroll_into_view_if_needed()
- expect(page.locator('#contribution-status')).to_contain_text('불러오지 못했습니다')
- expect(page.locator('.contribution-card > a.text-link')).to_be_visible()
+ context.route('https://**',lambda route:route.abort())
+ page=context.new_page();page.goto(URL)
+ expect(page.locator('.activity-month')).to_have_count(3)
+ expect(page.locator('#activity > a.text-link')).to_have_attribute('href','https://github.com/Jun1188')
+ expect(page.locator('.activity-years details')).to_have_count(3)
+ page.locator('.activity-years summary').first.click()
+ expect(page.locator('.activity-years details').first).to_have_attribute('open','')
  assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
  context.close()
  context=browser.new_context(java_script_enabled=False,viewport={'width':390,'height':844})
