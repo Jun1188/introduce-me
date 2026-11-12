@@ -40,7 +40,7 @@ with sync_playwright() as p:
  context.route('https://ghchart.rshah.org/**',lambda route:route.abort())
  page=context.new_page();page.goto(URL);page.locator('#contact').scroll_into_view_if_needed()
  expect(page.locator('#contribution-status')).to_contain_text('불러오지 못했습니다')
- expect(page.locator('.contribution-card a')).to_be_visible()
+ expect(page.locator('.contribution-card > a.text-link')).to_be_visible()
  assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
  context.close()
  context=browser.new_context(java_script_enabled=False,viewport={'width':390,'height':844})
