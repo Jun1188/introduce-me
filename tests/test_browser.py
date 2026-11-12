@@ -27,6 +27,7 @@ with sync_playwright() as p:
   summary.focus();page.keyboard.press('Enter');expect(detail).to_have_attribute('open','')
   page.keyboard.press('Enter');expect(detail).not_to_have_attribute('open','')
   page.locator('#motion').click();expect(page.locator('body')).to_have_class('motion-off')
+  assert page.locator('html').evaluate('(e)=>getComputedStyle(e).scrollBehavior')=='auto'
   page.locator('#motion').click();expect(page.locator('body')).not_to_have_class('motion-off')
   page.evaluate('document.querySelectorAll(".reveal").forEach(el=>el.classList.add("seen"))')
   page.screenshot(path=str(OUT/f'full-{width}.png'),full_page=True)

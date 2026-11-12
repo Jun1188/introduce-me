@@ -2,7 +2,7 @@
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 let motionOff = reduced.matches;
 const motion = document.querySelector('#motion');
-function applyMotion(){document.body.classList.toggle('motion-off',motionOff);motion.setAttribute('aria-pressed',String(motionOff));motion.textContent=motionOff?'모션 켜기':'모션 끄기';}
+function applyMotion(){document.documentElement.classList.toggle('motion-off',motionOff);document.body.classList.toggle('motion-off',motionOff);motion.setAttribute('aria-pressed',String(motionOff));motion.textContent=motionOff?'모션 켜기':'모션 끄기';}
 applyMotion();motion.addEventListener('click',()=>{motionOff=!motionOff;applyMotion()});
 reduced.addEventListener('change',e=>{motionOff=e.matches;applyMotion()});
 for(let i=0;i<80;i++){document.querySelector('.dot-field').append(document.createElement('i'))}
@@ -14,3 +14,4 @@ if('IntersectionObserver' in window){const reveals=document.querySelectorAll('.p
 let ticking=false;function updateProgress(){const max=document.documentElement.scrollHeight-innerHeight;document.querySelector('.scroll-progress').style.width=`${max>0?scrollY/max*100:0}%`;ticking=false;}
 addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(updateProgress);ticking=true}},{passive:true});addEventListener('resize',updateProgress);updateProgress();
 document.querySelector('#print').addEventListener('click',()=>window.print());
+
