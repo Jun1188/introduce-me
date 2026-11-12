@@ -7,7 +7,7 @@ ROOT=Path(__file__).resolve().parents[1]
 d=json.loads((ROOT/'data/github-activity.json').read_text());p=ROOT/'index.html';s=p.read_text()
 highlights=re.search(r'<div class="contribution-highlights">.*?</div>',s).group()
 months={m['month']:m for y in d['years'] for m in y['months']}
-parts=['<section id="activity" class="activity-chapter section wrap"><div class="section-head"><p class="eyebrow">06 / CODE ACTIVITY</p><h2>집중해서 쌓은<br>개발의 기록</h2><p class="activity-intro">기여가 많은 기간을 먼저 살펴보고, 다른 기록은 연도별로 간단히 확인할 수 있습니다.</p></div><div class="active-months">']
+parts=['<section id="activity" class="activity-chapter section wrap"><div class="section-head"><p class="eyebrow">06 / CODE ACTIVITY</p><h2>집중해서 쌓은<br> 개발의 기록</h2><p class="activity-intro">기여가 많은 기간을 먼저 살펴보고, 다른 기록은 연도별로 간단히 확인할 수 있습니다.</p></div><div class="active-months">']
 for row in d['active_months_ranked'][:3]:
  m=months[row['month']];year,month=map(int,m['month'].split('-'));incomplete='' if m['complete_month'] else f' · {d["as_of"]}까지'
  parts.append(f'<article class="activity-month"><h3>{year}년 {month}월</h3><p class="month-total">{m["count"]:,}회 기여 · 활동 {m["active_days"]}일{incomplete}</p><div class="calendar-weekdays" aria-hidden="true">'+''.join('<span>'+x+'</span>' for x in '일월화수목금토')+'</div><div class="month-calendar">')
