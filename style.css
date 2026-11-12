@@ -12,3 +12,7 @@
 
 /* Hidden filter results remain hidden regardless of their layout variant. */
 [hidden]{display:none!important}html.motion-off{scroll-behavior:auto}
+
+.contribution-card{margin-top:64px;padding:32px;border:1px solid var(--line);border-radius:4px;background:#f0f1e8}.contribution-card h3{font-size:clamp(22px,3vw,32px);margin:12px 0}.contribution-card p{max-width:68ch;line-height:1.8}.contribution-scroll{overflow-x:auto;max-width:100%;margin:28px 0;padding:12px 0;scrollbar-width:thin}.contribution-scroll img{display:block;width:100%;min-width:660px;height:auto}.contribution-scroll:focus-visible{outline:2px solid #27664b;outline-offset:4px}@media(max-width:500px){.contribution-card{padding:20px}.contribution-card p{font-size:14px}}
+
+.contribution-highlights{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px}.contribution-highlights article{border-top:2px solid #27664b;padding-top:20px}.contribution-highlights span{font:11px monospace;color:#27664b}.contribution-highlights h4{font-size:22px;margin:12px 0}.contribution-highlights p{font-size:14px}.contribution-highlights a{display:inline-block;padding:12px 0;font-size:14px;text-underline-offset:5px}@media(max-width:700px){.contribution-highlights{grid-template-columns:1fr;gap:20px}}

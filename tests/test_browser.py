@@ -35,6 +35,14 @@ with sync_playwright() as p:
   page.locator('#knowledge').scroll_into_view_if_needed();page.screenshot(path=str(OUT/f'knowledge-{width}.png'))
   assert not errors,errors
   results.append({'width':width,'status':'passed'});context.close()
+ # The external chart is optional; a failed service must not block the portfolio.
+ context=browser.new_context(viewport={'width':390,'height':844})
+ context.route('https://ghchart.rshah.org/**',lambda route:route.abort())
+ page=context.new_page();page.goto(URL);page.locator('#contact').scroll_into_view_if_needed()
+ expect(page.locator('#contribution-status')).to_contain_text('불러오지 못했습니다')
+ expect(page.locator('.contribution-card a')).to_be_visible()
+ assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
+ context.close()
  context=browser.new_context(java_script_enabled=False,viewport={'width':390,'height':844})
  page=context.new_page();page.goto(URL)
  expect(page.locator('[data-kind]:visible')).to_have_count(6)
