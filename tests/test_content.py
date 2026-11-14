@@ -35,6 +35,15 @@ class Content(unittest.TestCase):
   import re
   for heading in re.findall(r'<h[1-6]\b[^>]*>.*?</h[1-6]>',self.text):
    self.assertNotRegex(heading,r'<br>[^\s]')
+ def test_chapter_disclosures(self):
+  import re
+  self.assertEqual(len(re.findall(r'<details class="chapter-details"',self.text)),7)
+  self.assertNotRegex(self.text,r'<details class="chapter-details"[^>]*\\bopen')
+  activity=self.text.split('<section id="activity"')[1].split('</section>')[0]
+  self.assertNotIn('2024',activity)
+  for target in ['work','knowledge','creating','community','record','activity','contact']:
+   self.assertIn('href="#'+target+'"',self.text.split('<section class="work')[0])
  def test_images(self):
   for i in self.doc.images:self.assertTrue(i.get('alt'));self.assertTrue(i.get('width'));self.assertTrue(i.get('height'))
 if __name__=='__main__':unittest.main()
+
