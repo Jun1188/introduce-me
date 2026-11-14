@@ -29,3 +29,21 @@
 @media(max-width:900px){.disciplines{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.chapter-details>summary{width:100%}.disciplines a,.disciplines a:first-child{padding:18px 12px}.disciplines strong{font-size:16px}.disciplines small{font-size:10px}}
 @media(max-width:360px){.disciplines{grid-template-columns:1fr}}
+
+
+/* Put the subject first and keep the original line as an editorial subheading. */
+section .chapter-subtitle{margin:-3px 0 12px;font-size:clamp(17px,2.1vw,23px)!important;line-height:1.48;letter-spacing:-.026em;font-weight:600;color:var(--accent)}
+#knowledge .chapter-subtitle{color:#c2d7b9}
+.contact:has(.chapter-subtitle) h2{margin-bottom:15px}
+#contact .chapter-subtitle{margin-bottom:24px}
+/* Name emphasis only: keep the hero copy, navigation, and section order. */
+.hero-identity strong{font-size:clamp(30px,4.2vw,50px);font-weight:750;line-height:1.12;letter-spacing:-.045em;white-space:nowrap}
+@media(max-width:640px){.hero-identity strong{font-size:clamp(30px,8.5vw,40px);margin-top:6px}}
+@media print{#knowledge .chapter-subtitle{color:#222}.hero-identity strong{font-size:24pt}}
+
+
+/* Name takes the former headline scale; the two-line message leads only slightly. */
+.hero-identity strong{font-size:clamp(42px,5.8vw,82px)}
+.hero h1{font-size:clamp(46px,6.25vw,88px);line-height:1.14}
+@media(max-width:640px){.hero-identity strong{font-size:clamp(33px,7.5vw,56px)}.hero h1{font-size:clamp(36px,8.15vw,61px)}}
+@media print{.hero-identity strong{font-size:24pt}.hero h1{font-size:27pt}}
