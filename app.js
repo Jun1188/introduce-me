@@ -16,3 +16,24 @@ addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(updateProgress
 document.querySelector('#print').addEventListener('click',()=>window.print());
 
 
+
+
+// Direct chapter links reveal their content; ordinary page entry stays collapsed.
+function revealLinkedChapter(){
+ let hash=location.hash.slice(1);try{hash=decodeURIComponent(hash)}catch{}
+ let target=hash?document.getElementById(hash):null;
+ if(!target&&new URLSearchParams(location.search).has('category'))target=document.getElementById('work');
+ const disclosure=target?.matches('details.chapter-details')?target:target?.querySelector('details.chapter-details');
+ if(disclosure)disclosure.open=true;
+}
+revealLinkedChapter();addEventListener('hashchange',revealLinkedChapter);
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',()=>{
+ const target=document.getElementById(a.getAttribute('href').slice(1));
+ const detail=target?.querySelector('details.chapter-details');if(detail)detail.open=true;
+}));
+document.querySelectorAll('.chapter-details').forEach(d=>d.addEventListener('toggle',()=>{
+ d.querySelector(':scope > summary').textContent=d.open?'세부사항 접기':'세부사항 보기';updateProgress();
+}));
+let printDisclosureState=[];
+addEventListener('beforeprint',()=>{printDisclosureState=[...document.querySelectorAll('.chapter-details')].map(d=>[d,d.open]);printDisclosureState.forEach(([d])=>{d.open=true});});
+addEventListener('afterprint',()=>{printDisclosureState.forEach(([d,open])=>{d.open=open});});

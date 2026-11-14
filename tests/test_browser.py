@@ -12,6 +12,11 @@ with sync_playwright() as p:
   page.goto(URL);expect(page.locator('h1')).to_be_visible()
   assert page.locator('.hero-identity').inner_text().startswith('게임 개발자 · 컨텐츠 크리에이터')
   assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
+  expect(page.locator('.chapter-details')).to_have_count(7)
+  assert page.locator('.chapter-details[open]').count()==0
+  for link in page.locator('.disciplines a').all():
+   link.click();target=link.get_attribute('href');expect(page.locator(target+' .chapter-details')).to_have_attribute('open','')
+   assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
   for section in ['knowledge','creating','community','record','activity','contact']:
    page.locator('#'+section).scroll_into_view_if_needed();expect(page.locator('#'+section+' h2')).to_be_visible()
    assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
@@ -44,14 +49,16 @@ with sync_playwright() as p:
  context.route('https://**',lambda route:route.abort())
  page=context.new_page();page.goto(URL)
  expect(page.locator('.activity-month')).to_have_count(3)
- expect(page.locator('#activity > a.text-link')).to_have_attribute('href','https://github.com/Jun1188')
- expect(page.locator('.activity-years details')).to_have_count(3)
+ expect(page.locator('#activity a.text-link')).to_have_attribute('href','https://github.com/Jun1188')
+ expect(page.locator('.activity-years details')).to_have_count(2)
+ page.locator('#activity-details > summary').click()
  page.locator('.activity-years summary').first.click()
  expect(page.locator('.activity-years details').first).to_have_attribute('open','')
  assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
  context.close()
  context=browser.new_context(java_script_enabled=False,viewport={'width':390,'height':844})
  page=context.new_page();page.goto(URL)
+ page.locator('#work-details > summary').click()
  expect(page.locator('[data-kind]:visible')).to_have_count(6)
  expect(page.locator('#knowledge h2')).to_be_visible()
  assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
@@ -63,3 +70,4 @@ with sync_playwright() as p:
  context.close();browser.close()
 (OUT/'results.json').write_text(json.dumps(results,indent=2))
 print('All viewport, navigation, filter, disclosure, motion and no-JavaScript checks passed.')
+
